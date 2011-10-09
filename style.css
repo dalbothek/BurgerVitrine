@@ -1,3 +1,8 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background: #eee;
+}
+
 dt {
 	float: left;
 }
@@ -10,11 +15,82 @@ dd, dt {
 	height: 18px;
 }
 
-.icon {
+.craftrow {
+	overflow: hidden;
+}
+
+.craftrow > div {
+	float: left;
+}
+
+.icon, .texture, .craftable {
 	width: 32px;
 	height: 32px;
-	background: url(items.png) no-repeat;
-	background-size: 512px auto;
+}
+
+.workbench dl {
+	display: none;
+}
+
+.workbench {
+	margin: 0!important;
+	height: 112px;
+	width: 230px;
+	padding: 10px;
+	position: relative;
+	background: #c6c6c6 url(arrow.png) no-repeat 133px center;
+	background-size: 44px auto;
+	image-rendering: -moz-crisp-edges;
+	border: #000 solid 2px;
+	border-color: #fff #373737 #373737 #fff;
+}
+
+.result {
+	position: absolute;
+	right: 10px;
+	top: 40px;
+}
+
+.result .craftable {
+	padding: 9px;
+}
+
+pre {
+
+}
+
+.craftable {
+	width: 32px;
+	height: 32px;
+	padding: 1px;
+	border: #000 solid 2px;
+	background: #8b8b8b;
+	border-color: #373737 #fff #fff #373737;
+	text-align: center;
+	font-family: Minecraft, Times;
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	font-size:16px;
+	position: relative;
+	color: #333;
+	text-shadow: 1px 1px 0px #555;
+}
+
+.amount {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	color: #fff;
+	font-size: 16px;
+	text-shadow: 2px 2px 0px #000;
+}
+
+.icon {
+	background-image: url(items.png);
+}
+
+.texture {
+	background-image: url(terrain.png);
 }
 
 .split {
@@ -32,7 +108,11 @@ dd, dt {
 }
 
 .entry {
-	overflow: hidden;
+	overflow: hidden;	
+	padding: 5px;
+
+
+
 }
 
 .entry > div {
@@ -47,7 +127,7 @@ h3 {
 /* Syntax highlighting */
 
 pre .hll { background-color: #ffffcc }
-pre  { background: #f8f8f8; }
+pre  { background: #eee; padding: 5px; margin-right: 10px; }
 pre .hl_c { color: #408080; font-style: italic } /* Comment */
 pre .hl_err { border: 1px solid #FF0000 } /* Error */
 pre .hl_k { font-weight: bold } /* Keyword */

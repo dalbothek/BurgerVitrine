@@ -10,14 +10,15 @@ from cgi import escape
 class Topping(object):
     KEY = None
     NAME = "Unimplemented topping"
-    ITEMS = ()
+    ITEMS = (("json", None),)
     NO_ESCAPE = ()
     ESCAPE_TITLE = True
 
     NO_ENTRIES = '<span class="info">No entries</span>'
 
-    def __init__(self, data):
+    def __init__(self, data, diff):
         self.data = data
+        self.diff = diff
 
     def __str__(self):
         return "<h2>%s</h2>%s" % (self.NAME, self._parse_data())
@@ -43,7 +44,7 @@ class Topping(object):
         return aggregate
 
     def _parse_entry(self, entry, key=None):
-        if isinstance(entry, list):
+        if self.diff:
             return self._split(self._get_entry_html(entry[0], key),
                               self._get_entry_html(entry[1], key))
         else:
@@ -77,8 +78,9 @@ class Topping(object):
         return aggregate + "</dl>" + post_dl
     
     def parse_entry(self, entry, key=None):
-        return "<p>%s</p>" % self.escape(json.dumps(entry))
-
+        entry["json"] = json.dumps(entry)
+        return "NA"
+    
     def escape(self, string):
         return escape(str(string))
 

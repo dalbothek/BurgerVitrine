@@ -54,30 +54,7 @@ def embed(html):
                 <body>%s</body>
               </html>""" % html
 
-if __name__ == '__main__':
-    try:
-        opts, args = getopt.gnu_getopt(
-            sys.argv[1:],
-            "o:b",
-            [
-                "output=",
-                "body"
-            ]
-        )
-    except getopt.GetoptError, err:
-        print str(err)
-        sys.exit(1)
-
-    # Default options
-    output = sys.stdout
-    only_body = False
-
-    for o, a in opts:
-        if o in ("-o", "--output"):
-            output = open(a, "ab")
-        elif o in ("-b", "--body"):
-            only_body = True
-            
+def generate_html():
     toppings = import_toppings()
 
     # Load JSON objects from stdin
@@ -93,7 +70,8 @@ if __name__ == '__main__':
         usage()
         sys.exit(5)
 
-    if isinstance(data, list):
+    diff = not isinstance(data, list)
+    if not diff:
         data = data[0]
 
     # Generate HTML
@@ -113,7 +91,7 @@ if __name__ == '__main__':
         if skip:
             continue
 
-        aggregate += str(topping(obj))
+        aggregate += str(topping(obj, diff))
 
     if not only_body:
         aggregate = embed(aggregate)
@@ -121,3 +99,47 @@ if __name__ == '__main__':
     # Output results
     output.write(aggregate)
 
+def extract():
+    import extractor
+    if extractor.extract(jar, mode, output) is None:
+        sys.exit(1)
+
+if __name__ == '__main__':
+    try:
+        opts, args = getopt.gnu_getopt(
+            sys.argv[1:],
+            "o:bi:t:",
+            [
+                "output=",
+                "body",
+                "items=",
+                "terrain="
+            ]
+        )
+    except getopt.GetoptError, err:
+        print str(err)
+        sys.exit(1)
+
+    # Default options
+    output = sys.stdout
+    only_body = False
+    mode = "html"
+    jar = None
+
+    for o, a in opts:
+        if o in ("-o", "--output"):
+            output = open(a, "ab")
+        elif o in ("-b", "--body"):
+            only_body = True
+        elif o in ("-i", "--items"):
+            mode = "items"
+            jar = a
+        elif o in ("-t", "--terrain"):
+            mode = "terrain"
+            jar = a
+
+
+    if mode == "html":
+        generate_html()
+    else:
+        extract()

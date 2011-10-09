@@ -12,9 +12,14 @@ class BlocksTopping(Topping):
     ITEMS = (("id", "ID"),
              ("name", "Name"),
              ("hardness", "Hardness"))
+    ESCAPE_TITLE = False
 
     def parse_entry(self, entry, key):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
-                            
-        return entry["id"]
+        if "texture" in entry:
+            icon = [-entry["texture"][axis]*32 for axis in ("x", "y")]
+            return ('<div class="texture" style="background-position:' +
+                    '%spx %spx;"></div>') % (icon[0], icon[1])
+        else:
+            return entry["id"]
