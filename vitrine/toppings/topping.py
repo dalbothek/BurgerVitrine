@@ -52,7 +52,7 @@ class Topping(object):
 
     def _get_entry_html(self, entry, key=None):
         if entry is None:
-            return ""
+            return '<div class="no entry"></div>'
         else:
             return self._entry(self.parse_entry(entry, key),
                                self._get_dl(entry), self.ESCAPE_TITLE)
@@ -91,6 +91,6 @@ class Topping(object):
                 '<div>%s</div></div>') % (title, content)
 
     def _split(self, left, right):
-        return ('<div class="split"><div>%s</div>' +
-                '<div>%s</div></div>') % (left, right)
+        return ('<div class="split">%s' +
+                '%s</div>') % (left, right)
 

@@ -51,7 +51,11 @@ def embed(html):
                   <title>Burger Vitrine</title>
                   <link rel="stylesheet" href="style.css" />
                 </head>
-                <body>%s</body>
+                <body>
+                    <div id="vitrine">
+                        %s
+                    </div>
+                </body>
               </html>""" % html
 
 def generate_html():

@@ -1,91 +1,4 @@
-body {
-	font-family: Helvetica, Arial, sans-serif;
-	background: #eee;
-}
-
-dt {
-	float: left;
-}
-
-dd {
-	margin-left: 100px;
-}
-
-dd, dt {
-	height: 18px;
-}
-
-.craftrow {
-	overflow: hidden;
-}
-
-.craftrow > div {
-	float: left;
-}
-
-.icon, .texture, .craftable {
-	width: 32px;
-	height: 32px;
-}
-
-.workbench dl {
-	display: none;
-}
-
-.workbench {
-	margin: 0!important;
-	height: 112px;
-	width: 230px;
-	padding: 10px;
-	position: relative;
-	background: #c6c6c6 url(arrow.png) no-repeat 133px center;
-	background-size: 44px auto;
-	image-rendering: -moz-crisp-edges;
-	border: #000 solid 2px;
-	border-color: #fff #373737 #373737 #fff;
-}
-
-.result {
-	position: absolute;
-	right: 10px;
-	top: 40px;
-}
-
-.result .craftable {
-	padding: 9px;
-}
-
-pre {
-
-}
-
-.craftable {
-	width: 32px;
-	height: 32px;
-	padding: 1px;
-	border: #000 solid 2px;
-	background: #8b8b8b;
-	border-color: #373737 #fff #fff #373737;
-	text-align: center;
-	font-family: Minecraft, Times;
-	font-smooth: never;
-	-webkit-font-smoothing: none;
-	font-size:16px;
-	position: relative;
-	color: #333;
-	text-shadow: 1px 1px 0px #555;
-}
-
-.amount {
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	color: #fff;
-	font-size: 16px;
-	text-shadow: 2px 2px 0px #000;
-}
-
-.icon {
+.item {
 	background-image: url(items.png);
 }
 
@@ -93,41 +6,158 @@ pre {
 	background-image: url(terrain.png);
 }
 
-.split {
-	overflow: hidden;
-	width: 100%;
-	padding: 0;
+@font-face {
+	font-family: Minecraft;
+	src: url("minecraft.eot?") format("eot"),
+	     url("minecraft.woff") format("woff"),
+	     url("minecraft.ttf") format("truetype"),
+	     url("minecraft.svg#Minecraft") format("svg");
+	font-weight: normal;
+	font-style: normal;
 }
 
-.split > div {
-	min-height: 1px;
-	width: 40%;
-	float: left;
-	margin: 0;
-	padding: 0;
+body {
+	background: #fff;
+	font-family: Courier, Calibri, Arial, sans-serif;
 }
 
-.entry {
-	overflow: hidden;	
-	padding: 5px;
-
-
-
-}
-
-.entry > div {
-	margin-left: 60px;
-}
-
-h3 {
-	width: 50px;
-	float: left;
-}
-
+	#vitrine {
+		width: 960px;
+		margin: 0 auto;
+		padding: 8px;
+		border: 1px solid #333;
+		background: url(dirt.png);
+	}
+	
+		h2 {
+			color: #fff;
+			font-family: Minecraft, Courier, sans-serif;
+			font-size: 32px;
+			-webkit-font-smoothing: none;
+			text-shadow: 2px 2px 0px #333;
+		}
+		
+			h2:first-child {
+				margin-top: 0;
+			}
+			
+		.split {
+			overflow: hidden;
+		}
+		
+			.split > div {
+				float: left;
+			}
+			
+		.entry {
+			background: rgba(245, 245, 245, 0.8);
+			border: 1px solid #333;
+			margin: 3px;
+			padding: 5px;
+			overflow: hidden;
+			width: 462px;
+			min-height: 40px;
+			position: relative;
+			-webkit-font-smoothing: antialiased;
+			border-color: #373737 #fff #fff  #373737;
+		}
+		
+			.no.entry {
+				background: none;
+				border: none;
+				margin: 4px;
+			}
+			
+			h3 {
+				width: 50px;
+				height: 36px;
+				margin: auto;
+				padding: 0;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				font-family: Minecraft, Courier, sans-serif;
+				font-size: 16px;
+				-webkit-font-smoothing: none;
+			}
+			
+			.item, .texture, .empty, .result, .craftitem {
+				width: 32px;
+				height: 32px;
+				border: #000 solid 2px;
+				background-color: #8b8b8b;
+				border-color: #373737 #fff #fff #373737;
+			}
+			
+			.craftitem {
+				text-shadow: 1px 1px 0px #aaa;
+				font-size: 12px;
+				line-height: 30px;
+				font-family: Minecraft, Courier, sans-serif;
+				-webkit-font-smoothing: none;
+				text-align: center;
+			}
+			
+			dl {
+				margin: 0;
+			}
+			
+			h3 + div, h3 + dl {
+				margin-left: 50px;
+			}
+			
+				dt {
+					float: left;
+				}
+				
+				dd {
+					margin-left: 120px;
+				}
+				
+			.workbench {
+				height: 112px;
+				width: 230px;
+				padding: 10px;
+				position: relative;
+				background: #c6c6c6 url(arrow.png) no-repeat 133px center;
+				image-rendering: -moz-crisp-edges;
+				border: #000 solid 2px;
+				border-color: #fff #373737 #373737 #fff;
+			}
+			
+				.craftrow {
+					overflow: hidden;
+				}
+			
+					.craftrow > div {
+						float: left;
+					}
+			
+				.result {
+					position: absolute;
+					right: 10px;
+					top: 40px;
+					padding: 7px;
+				}
+				
+					.result div {
+						border: none;
+					}
+					
+					.amount {
+						position: absolute;
+						bottom: 3px;
+						right: 3px;
+						color: #fff;
+						font-size: 16px;
+						text-shadow: 2px 2px 0px #000;
+						font-family: Minecraft, Courier, sans-serif;
+						-webkit-font-smoothing: none;
+					}
+					
 /* Syntax highlighting */
 
 pre .hll { background-color: #ffffcc }
-pre  { background: #eee; padding: 5px; margin-right: 10px; }
 pre .hl_c { color: #408080; font-style: italic } /* Comment */
 pre .hl_err { border: 1px solid #FF0000 } /* Error */
 pre .hl_k { font-weight: bold } /* Keyword */

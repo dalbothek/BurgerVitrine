@@ -17,5 +17,5 @@ class ItemsTopping(Topping):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
         icon = [-entry["icon"][axis]*32 for axis in ("x", "y")]
-        return ('<div class="icon" style="background-position:' +
+        return ('<div class="item" style="background-position:' +
                         '%spx %spx;"></div>') % (icon[0], icon[1])

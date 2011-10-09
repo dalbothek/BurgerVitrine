@@ -19,7 +19,7 @@ except:
 class PacketsTopping(Topping):
     KEY = "packets.packet"
     NAME = "Packets"
-    ITEMS = (("id","ID"),
+    ITEMS = ("ID",
              "Direction",
              ("size", "Size"),
              ("code", None))
@@ -43,7 +43,8 @@ class PacketsTopping(Topping):
     def parse_entry(self, entry, key):
         entry["Direction"] = self.DIRECTIONS[(entry["from_client"], entry["from_server"])]
         entry["code"] = self.code(entry["instructions"])
-        return hex(entry["id"])
+        entry["ID"] = "0x%02x (%s)" % (entry["id"], entry["id"])
+        return "%02x" % entry["id"]
 
     def code(self, instructions):
         code = self.instructions(instructions)

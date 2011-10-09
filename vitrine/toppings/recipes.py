@@ -12,8 +12,8 @@ class RecipesTopping(Topping):
     NO_ESCAPE = ("json")
     
     def _get_entry_html(self, entry, key=None):
-        if entry is None:
-            return ""
+        if entry is None or len(entry) == 0:
+            return '<div class="no entry"></div>'
         else:
             aggregate = ""
             for recipe in entry:
@@ -27,11 +27,17 @@ class RecipesTopping(Topping):
         return ('<div class="entry">' +
                 '<div class="workbench"><div class="craftgrid">%s</div><div class="result">%s</div></div></div>') % (content, title)
 
+    def _split(self, left, right):
+        return ('<div class="split"><div>%s</div>' +
+                '<div>%s</div></div>') % (left, right)
+
     def parse_entry(self, entry, key):
-        result = self.craft_item(entry["makes"], entry["amount"])
+        result = self.craft_item(entry["makes"])
+        if entry["amount"] > 1:
+            result += '<div class="amount">%s</div>' % entry["amount"]
         aggregate = ""
         if entry["type"] == "shape":
-            materials = {' ':'<div class="craftable"></div>'}
+            materials = {' ':'<div class="empty"></div>'}
             for key,material in entry["raw"]["subs"].iteritems():
                 materials[key] = self.craft_item(material)
             rows = entry["raw"]["rows"]
@@ -52,7 +58,7 @@ class RecipesTopping(Topping):
             aggregate += '<div class="craftrow">'
             i = 0
             while len(entry["ingredients"]) < 9:
-                entry["ingredients"].append(' ')
+                entry["ingredients"].append(None)
             for material in entry["ingredients"]:
                 aggregate += self.craft_item(material)
                 i += 1
@@ -64,21 +70,19 @@ class RecipesTopping(Topping):
         entry["json"] = aggregate
         return result
 
-    def craft_item(self, material, amount=1):
+    def craft_item(self, material):
         if material is None:
-            content = 'X'
-        if "icon" in material:
+            return '<div class="empty"></div>'
+        elif "icon" in material:
             icon = [-material["icon"][axis]*32 for axis in ("x", "y")]
-            content = ('<div class="icon" style="background-position:' +
+            return ('<div class="item" style="background-position:' +
                        '%spx %spx;"></div>') % (icon[0], icon[1])
         elif "texture" in material:
             icon = [-material["texture"][axis]*32 for axis in ("x", "y")]
-            content = ('<div class="texture" style="background-position:' +
+            return ('<div class="texture" style="background-position:' +
                        '%spx %spx;"></div>') % (icon[0], icon[1])
         elif "id" in material:
             content = material["id"]
         else:
             content = material
-        if amount > 1:
-            content = '%s<span class="amount">%s</span>' % (content, amount)
-        return '<div class="craftable">%s</div>' % content
+        return '<div class="craftitem">%s</div>' % content

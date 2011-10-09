@@ -22,4 +22,4 @@ class BlocksTopping(Topping):
             return ('<div class="texture" style="background-position:' +
                     '%spx %spx;"></div>') % (icon[0], icon[1])
         else:
-            return entry["id"]
+            return '<div class="craftitem">%s</div>' % entry["id"]
