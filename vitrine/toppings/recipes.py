@@ -10,6 +10,7 @@ class RecipesTopping(Topping):
     KEY = "recipes"
     NAME = "Recipes"
     NO_ESCAPE = ("json")
+    PRIORITY = 8
     
     def _get_entry_html(self, entry, key=None):
         if entry is None or len(entry) == 0:

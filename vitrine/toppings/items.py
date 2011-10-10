@@ -4,15 +4,16 @@
 # To Public License, Version 2, as published by Sam Hocevar. See
 # http://sam.zoy.org/wtfpl/COPYING for more details.
 
-from .topping import Topping
+from .itemtitletopping import ItemTitleTopping
 
-class ItemsTopping(Topping):
+class ItemsTopping(ItemTitleTopping):
     KEY = "items.item"
     NAME = "Items"
     ITEMS = (("id", "ID"),
              ("name", "Name"))
     ESCAPE_TITLE = False
-
+    PRIORITY = 9
+    
     def parse_entry(self, entry, key):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]

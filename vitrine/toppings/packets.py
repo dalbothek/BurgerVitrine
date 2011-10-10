@@ -19,8 +19,7 @@ except:
 class PacketsTopping(Topping):
     KEY = "packets.packet"
     NAME = "Packets"
-    ITEMS = ("ID",
-             "Direction",
+    ITEMS = ("Direction",
              ("size", "Size"),
              ("code", None))
     NO_ESCAPE = ("code")
@@ -39,12 +38,12 @@ class PacketsTopping(Topping):
              "string16": "writeString",
              "byte[]": "writeBytes"
         }
+    PRIORITY = 7
 
     def parse_entry(self, entry, key):
         entry["Direction"] = self.DIRECTIONS[(entry["from_client"], entry["from_server"])]
         entry["code"] = self.code(entry["instructions"])
-        entry["ID"] = "0x%02x (%s)" % (entry["id"], entry["id"])
-        return "%02x" % entry["id"]
+        return "0x%02x (%s)" % (entry["id"], entry["id"])
 
     def code(self, instructions):
         code = self.instructions(instructions)

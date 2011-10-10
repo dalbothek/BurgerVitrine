@@ -13,6 +13,7 @@ class Topping(object):
     ITEMS = (("json", None),)
     NO_ESCAPE = ()
     ESCAPE_TITLE = True
+    PRIORITY = 0
 
     NO_ENTRIES = '<span class="info">No entries</span>'
 
@@ -87,10 +88,9 @@ class Topping(object):
     def _entry(self, title, content, escape=True):
         if escape:
             title = self.escape(title)
-        return ('<div class="entry"><h3>%s</h3>' +
-                '<div>%s</div></div>') % (title, content)
+    	return ('<div class="entry"><h3>%s</h3>' +
+            '<div>%s</div></div>') % (title, content)
 
     def _split(self, left, right):
         return ('<div class="split">%s' +
                 '%s</div>') % (left, right)
-

@@ -83,7 +83,7 @@ def generate_html():
     # Generate HTML
     aggregate = ""
 
-    for topping in toppings:
+    for topping in sorted(toppings, key=lambda x: -x.PRIORITY):
         if topping.KEY == None:
             continue
         keys = topping.KEY.split(".")
