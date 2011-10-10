@@ -73,16 +73,22 @@ class RecipesTopping(Topping):
     def craft_item(self, material):
         if material is None:
             return '<div class="empty"></div>'
-        elif "icon" in material:
+        if "display_name" in material:
+        	title = material["display_name"]
+        elif "name" in material:
+        	title = material["name"]
+        else:
+        	title = "Unknown"
+        if "icon" in material:
             icon = [-material["icon"][axis]*32 for axis in ("x", "y")]
-            return ('<div class="item" style="background-position:' +
-                       '%spx %spx;"></div>') % (icon[0], icon[1])
+            return ('<div title="%s" class="item" style="background-position:' +
+                       '%spx %spx;"></div>') % (title, icon[0], icon[1])
         elif "texture" in material:
             icon = [-material["texture"][axis]*32 for axis in ("x", "y")]
-            return ('<div class="texture" style="background-position:' +
-                       '%spx %spx;"></div>') % (icon[0], icon[1])
+            return ('<div title="%s" class="texture" style="background-position:' +
+                       '%spx %spx;"></div>') % (title, icon[0], icon[1])
         elif "id" in material:
             content = material["id"]
         else:
             content = material
-        return '<div class="craftitem">%s</div>' % content
+        return '<div title="%s" class="craftitem">%s</div>' % (title, content)

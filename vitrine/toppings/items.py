@@ -16,6 +16,8 @@ class ItemsTopping(Topping):
     def parse_entry(self, entry, key):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
+        elif "name" not in entry:
+        	entry["name"] = "Unknown"
         icon = [-entry["icon"][axis]*32 for axis in ("x", "y")]
-        return ('<div class="item" style="background-position:' +
-                        '%spx %spx;"></div>') % (icon[0], icon[1])
+        return ('<div class="item" title="%s" style="background-position:' +
+                        '%spx %spx;"></div>') % (entry["name"], icon[0], icon[1])

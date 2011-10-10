@@ -35,6 +35,7 @@ body {
 			font-size: 32px;
 			-webkit-font-smoothing: none;
 			text-shadow: 2px 2px 0px #333;
+			margin: 25px 3px;
 		}
 		
 			h2:first-child {
@@ -87,6 +88,7 @@ body {
 				border: #000 solid 2px;
 				background-color: #8b8b8b;
 				border-color: #373737 #fff #fff #373737;
+				position: relative;
 			}
 			
 			.craftitem {
@@ -96,7 +98,22 @@ body {
 				font-family: Minecraft, Courier, sans-serif;
 				-webkit-font-smoothing: none;
 				text-align: center;
+				cursor: default;
 			}
+			
+				#tooltip {
+					position: absolute;
+					z-index: 1;
+					padding: 4px;
+					border: 4px solid #2e093a;
+					border-radius: 5px;
+					color: #fff;
+					background: #000;
+					font-family: Minecraft, Courier, sans-serif;
+					-webkit-font-smoothing: none;
+					text-shadow: 2px 2px 0px #555;
+					display: none;
+				}
 			
 			dl {
 				margin: 0;
@@ -153,6 +170,7 @@ body {
 						text-shadow: 2px 2px 0px #000;
 						font-family: Minecraft, Courier, sans-serif;
 						-webkit-font-smoothing: none;
+						cursor: default;
 					}
 					
 /* Syntax highlighting */

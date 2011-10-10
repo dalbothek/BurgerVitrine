@@ -17,9 +17,11 @@ class BlocksTopping(Topping):
     def parse_entry(self, entry, key):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
+        elif "name" not in entry:
+        	entry["name"] = "Unknown"
         if "texture" in entry:
             icon = [-entry["texture"][axis]*32 for axis in ("x", "y")]
-            return ('<div class="texture" style="background-position:' +
-                    '%spx %spx;"></div>') % (icon[0], icon[1])
+            return ('<div title="%s" class="texture" style="background-position:' +
+                    '%spx %spx;"></div>') % (entry["name"], icon[0], icon[1])
         else:
-            return '<div class="craftitem">%s</div>' % entry["id"]
+            return '<div title="%s" class="craftitem">%s</div>' % (entry["name"], entry["id"])

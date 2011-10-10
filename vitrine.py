@@ -49,14 +49,16 @@ def embed(html):
     return """<html>
                 <head>
                   <title>Burger Vitrine</title>
-                  <link rel="stylesheet" href="style.css" />
+                  <link rel="stylesheet" href="%sstyle.css" />
+                  <script src="%sjquery.js"></script>
+                  <script src="%svitrine.js"></script>
                 </head>
                 <body>
                     <div id="vitrine">
                         %s
                     </div>
                 </body>
-              </html>""" % html
+              </html>""" % (resources, resources, resources, html)
 
 def generate_html():
     toppings = import_toppings()
@@ -104,7 +106,7 @@ def generate_html():
     output.write(aggregate)
 
 def extract():
-    import extractor
+    import vitrine.extractor
     if extractor.extract(jar, mode, output) is None:
         sys.exit(1)
 
@@ -112,12 +114,13 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.gnu_getopt(
             sys.argv[1:],
-            "o:bi:t:",
+            "o:bi:t:r:",
             [
                 "output=",
                 "body",
                 "items=",
-                "terrain="
+                "terrain=",
+                "resources="
             ]
         )
     except getopt.GetoptError, err:
@@ -129,19 +132,23 @@ if __name__ == '__main__':
     only_body = False
     mode = "html"
     jar = None
+    resources = "resources/"
 
     for o, a in opts:
         if o in ("-o", "--output"):
             output = open(a, "ab")
         elif o in ("-b", "--body"):
             only_body = True
+        elif o in ("-r", "--resources"):
+        	resources = a
+        	if resources[-1] != "/":
+        		resources += "/"
         elif o in ("-i", "--items"):
             mode = "items"
             jar = a
         elif o in ("-t", "--terrain"):
             mode = "terrain"
             jar = a
-
 
     if mode == "html":
         generate_html()
