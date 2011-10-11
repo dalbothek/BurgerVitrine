@@ -88,9 +88,9 @@ class Topping(object):
     def _entry(self, title, content, escape=True):
         if escape:
             title = self.escape(title)
-    	return ('<div class="entry"><h3>%s</h3>' +
+        return ('<div class="entry"><h3>%s</h3>' +
             '<div>%s</div></div>') % (title, content)
 
     def _split(self, left, right):
-        return ('<div class="split">%s' +
-                '%s</div>') % (left, right)
+        return ('<div class="split"><div class="left">%s</div>' +
+                '<div class="right">%s</div></div>') % (left, right)

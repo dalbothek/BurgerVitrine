@@ -11,6 +11,6 @@ class ItemTitleTopping(Topping):
     def _entry(self, title, content, escape=True):
         if escape:
             title = self.escape(title)
-    	return ('<div class="entry"><h3 class="left">%s</h3>' +
+    	return ('<div class="entry"><h3 class="item_title">%s</h3>' +
             '<div>%s</div></div>') % (title, content)
 

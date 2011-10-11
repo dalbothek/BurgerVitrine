@@ -120,6 +120,15 @@ body {
 				margin-top: 0;
 			}
 			
+		.info {
+			color: #fff;
+			font-weight: bold;
+			text-shadow: 1px 1px 0px #333;
+			margin-left: 10px;
+			font-size: 18px;
+			-webkit-font-smoothing: antialiased;
+		}
+			
 		.split {
 			overflow: hidden;
 		}
@@ -155,7 +164,7 @@ body {
 				margin: 0 0 10px 0;
 			}
 			
-				h3.left {
+				h3.item_title {
 					width: 50px;
 					height: 36px;
 					margin: auto;
@@ -202,7 +211,7 @@ body {
 				margin: 0;
 			}
 			
-			h3.left + div, h3.left + dl {
+			h3.item_title + div, h3.item_title + dl {
 				margin-left: 50px;
 			}
 			

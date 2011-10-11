@@ -8,7 +8,7 @@ from .topping import Topping
 
 class LanguageTopping(Topping):
     KEY = "language"
-    NAME = "Language"
+    NAME ="Language"
     ITEMS = ()
     PRIORITY = 4
                 
@@ -20,7 +20,9 @@ class LanguageTopping(Topping):
         for key,value in entry.iteritems():
             if value == "":
                 continue
-            elif key.endswith(".name") or key.endswith(".desc"):
+            if value is None:
+            	entry[key] = "-"
+            if key.endswith(".name") or key.endswith(".desc"):
                 yield (key, key[:-5])
             else:
                 yield key
@@ -28,3 +30,25 @@ class LanguageTopping(Topping):
     def _get_dl(self, entry):
         dl = Topping._get_dl(self, entry)
         return dl[:3] + ' class="wide"' + dl[3:]
+
+    def _parse_entry(self, entry, key=None):
+        if self.diff:
+            return self.compare(entry, key)
+        else:
+            return Topping._parse_entry(self, entry, key)
+            
+    def compare(self, entry, title):
+        if isinstance(entry, dict):
+            left = {}
+            right = {}
+            for key, values in entry.iteritems():
+                if values[0] in ("", None) and values[1] in ("", None):
+                	continue
+                elif values[0] != values[1]:
+                    left[key] = values[0]
+                    right[key] = values[1]
+            if len(left) == 0:
+                return ""
+            entry = [left, right]
+        return Topping._parse_entry(self, entry, title)
+        

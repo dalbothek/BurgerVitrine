@@ -10,10 +10,18 @@ import getopt
 import json
 
 def usage():
-    print "Example usage:",
-    print "Burger/munch.py -c 1.5.jar 1.6.jar | Hamburglar/hamburglar.py"
-
-
+    print "Usage:"
+    print "  vitrine.py [-b] [-r file] [-o file]"
+    print "  vitrine.py -i | -t file [-o file]"
+    print
+    print "Options:"
+    print "  -b, --body: Don't generate a complete HTML document"
+    print "  -r, --resources file: Path to resources folder"
+    print "  -o, --output file: Output result into a file instead of standard output"
+    print "  -i, --items file: Extract items.png from jar file"
+    print "  -t, --terrain file: Extract terrain.png from jar file"
+    print "  -h, --help: Show this help"
+    
 def import_toppings():
     """
     Attempts to load all available toppings.
@@ -114,13 +122,14 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.gnu_getopt(
             sys.argv[1:],
-            "o:bi:t:r:",
+            "o:bi:t:r:h",
             [
                 "output=",
                 "body",
                 "items=",
                 "terrain=",
-                "resources="
+                "resources=",
+                "help"
             ]
         )
     except getopt.GetoptError, err:
@@ -136,7 +145,7 @@ if __name__ == '__main__':
 
     for o, a in opts:
         if o in ("-o", "--output"):
-            output = open(a, "ab")
+            output = open(a, "w")
         elif o in ("-b", "--body"):
             only_body = True
         elif o in ("-r", "--resources"):
@@ -149,6 +158,9 @@ if __name__ == '__main__':
         elif o in ("-t", "--terrain"):
             mode = "terrain"
             jar = a
+        elif o in ("-h", "--help"):
+            usage()
+            sys.exit(0)
 
     if mode == "html":
         generate_html()
