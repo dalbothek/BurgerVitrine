@@ -6,6 +6,7 @@
 
 from solum import JarFile
 from StringIO import StringIO
+
 try:
     from PIL import Image
 except:
@@ -14,8 +15,10 @@ except:
     except:
         Image = None
 
+
 PATHS = {"terrain": "terrain.png",
          "items": "gui/items.png"}
+
 
 def extract(jar, file, output):
     if Image is None:
@@ -32,7 +35,6 @@ def extract(jar, file, output):
     data = jar.zp.read(path)
 
     image = Image.open(StringIO(data))
-    image.resize((512,512)).save(output, format="PNG")
-    
+    image.resize((512, 512)).save(output, format="PNG")
+
     return True
-    

@@ -6,6 +6,7 @@
 
 from .itemtitletopping import ItemTitleTopping
 
+
 class ItemsTopping(ItemTitleTopping):
     KEY = "items.item"
     NAME = "Items"
@@ -13,12 +14,14 @@ class ItemsTopping(ItemTitleTopping):
              ("name", "Name"))
     ESCAPE_TITLE = False
     PRIORITY = 9
-    
+
     def parse_entry(self, entry, key):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
         elif "name" not in entry:
-        	entry["name"] = "Unknown"
-        icon = [-entry["icon"][axis]*32 for axis in ("x", "y")]
-        return ('<div class="item" title="%s" style="background-position:' +
-                        '%spx %spx;"></div>') % (entry["name"], icon[0], icon[1])
+            entry["name"] = "Unknown"
+        icon = [-entry["icon"][axis] * 32 for axis in ("x", "y")]
+        return ('<div class="item" title="%s" ' +
+                'style="background-position:%spx %spx;"></div>') % (
+                    entry["name"], icon[0], icon[1]
+                )

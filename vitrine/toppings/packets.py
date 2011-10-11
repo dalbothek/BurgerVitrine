@@ -16,6 +16,7 @@ try:
 except:
     SYNTAX_HIGHLIGHT = False
 
+
 class PacketsTopping(Topping):
     KEY = "packets.packet"
     NAME = "Packets"
@@ -41,7 +42,10 @@ class PacketsTopping(Topping):
     PRIORITY = 7
 
     def parse_entry(self, entry, key):
-        entry["Direction"] = self.DIRECTIONS[(entry["from_client"], entry["from_server"])]
+        entry["Direction"] = self.DIRECTIONS[(
+            entry["from_client"],
+            entry["from_server"]
+        )]
         entry["code"] = self.code(entry["instructions"])
         return "0x%02x (%s)" % (entry["id"], entry["id"])
 
@@ -72,20 +76,23 @@ class PacketsTopping(Topping):
             aggregate = self.indent("}", level)
         close = True
         if instr["operation"] == "write":
-            aggregate += self.indent("%s(%s);" % (self.TYPES[instr["type"]], instr["field"]), level)
+            aggregate += self.indent("%s(%s);" % (
+                self.TYPES[instr["type"]],
+                instr["field"]
+            ), level)
             close = False
         elif instr["operation"] == "if":
             aggregate += self.indent("if(%s) {" % instr["condition"], level)
-            aggregate += self.instructions(instr["instructions"], level+1)
+            aggregate += self.instructions(instr["instructions"], level + 1)
         elif instr["operation"] == "else":
             aggregate = self.indent("} else {", level)
-            aggregate += self.instructions(instr["instructions"], level+1)
+            aggregate += self.instructions(instr["instructions"], level + 1)
         elif instr["operation"] == "loop":
             aggregate += self.indent("while(%s) {" % instr["condition"], level)
-            aggregate += self.instructions(instr["instructions"], level+1)
+            aggregate += self.instructions(instr["instructions"], level + 1)
         elif instr["operation"] == "switch":
             aggregate += self.indent("switch(%s) {" % instr["field"], level)
-            aggregate += self.instructions(instr["instructions"], level+1)
+            aggregate += self.instructions(instr["instructions"], level + 1)
         elif instr["operation"] == "case":
             if case:
                 level -= 1
@@ -99,7 +106,10 @@ class PacketsTopping(Topping):
             if instr["amount"] == "1":
                 aggregate += self.indent("%s++;" % instr["field"], level)
             else:
-                aggregate += self.indent("%s += %s;" % (instr["field"], instr["amount"]), level)
+                aggregate += self.indent("%s += %s;" % (
+                    instr["field"],
+                    instr["amount"]
+                ), level)
             close = False
         else:
             aggregate += self.indent("// %s" % instr["operation"], level)
@@ -107,4 +117,4 @@ class PacketsTopping(Topping):
         return (aggregate, close, case)
 
     def indent(self, string, level):
-        return "  "*level + string + "\n"
+        return "  " * level + string + "\n"

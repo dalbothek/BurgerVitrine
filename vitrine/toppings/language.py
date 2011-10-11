@@ -6,22 +6,23 @@
 
 from .topping import Topping
 
+
 class LanguageTopping(Topping):
     KEY = "language"
-    NAME ="Language"
+    NAME = "Language"
     ITEMS = ()
     PRIORITY = 4
-                
+
     def parse_entry(self, entry, key=None):
         self.ITEMS = self.filter_keys(entry)
         return key
-        
+
     def filter_keys(self, entry):
-        for key,value in entry.iteritems():
+        for key, value in entry.iteritems():
             if value == "":
                 continue
             if value is None:
-            	entry[key] = "-"
+                entry[key] = "-"
             if key.endswith(".name") or key.endswith(".desc"):
                 yield (key, key[:-5])
             else:
@@ -36,14 +37,14 @@ class LanguageTopping(Topping):
             return self.compare(entry, key)
         else:
             return Topping._parse_entry(self, entry, key)
-            
+
     def compare(self, entry, title):
         if isinstance(entry, dict):
             left = {}
             right = {}
             for key, values in entry.iteritems():
                 if values[0] in ("", None) and values[1] in ("", None):
-                	continue
+                    continue
                 elif values[0] != values[1]:
                     left[key] = values[0]
                     right[key] = values[1]
@@ -51,4 +52,3 @@ class LanguageTopping(Topping):
                 return ""
             entry = [left, right]
         return Topping._parse_entry(self, entry, title)
-        

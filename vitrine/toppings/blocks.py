@@ -6,6 +6,7 @@
 
 from .itemtitletopping import ItemTitleTopping
 
+
 class BlocksTopping(ItemTitleTopping):
     KEY = "blocks.block"
     NAME = "Blocks"
@@ -19,10 +20,14 @@ class BlocksTopping(ItemTitleTopping):
         if "display_name" in entry:
             entry["name"] = entry["display_name"]
         elif "name" not in entry:
-        	entry["name"] = "Unknown"
+            entry["name"] = "Unknown"
         if "texture" in entry:
-            icon = [-entry["texture"][axis]*32 for axis in ("x", "y")]
-            return ('<div title="%s" class="texture" style="background-position:' +
-                    '%spx %spx;"></div>') % (entry["name"], icon[0], icon[1])
+            icon = [-entry["texture"][axis] * 32 for axis in ("x", "y")]
+            return ('<div title="%s" class="texture" ' +
+                    'style="background-position:%spx %spx;"></div>') % (
+                        entry["name"], icon[0], icon[1]
+                    )
         else:
-            return '<div title="%s" class="craftitem">%s</div>' % (entry["name"], entry["id"])
+            return '<div title="%s" class="craftitem">%s</div>' % (
+                entry["name"], entry["id"]
+            )

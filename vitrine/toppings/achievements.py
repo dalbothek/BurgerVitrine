@@ -6,11 +6,12 @@
 
 from .topping import Topping
 
+
 class AchievementsTopping(Topping):
     KEY = "achievements"
     NAME = "Achievements"
     ITEMS = (("desc", None),)
     PRIORITY = 5
-    
+
     def parse_entry(self, entry, key=None):
-    	return entry["name"]
+        return entry["name"]

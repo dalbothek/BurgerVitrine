@@ -9,6 +9,7 @@ import sys
 import getopt
 import json
 
+
 def usage():
     print "Usage:"
     print "  vitrine.py [-b] [-r file] [-o file]"
@@ -17,11 +18,13 @@ def usage():
     print "Options:"
     print "  -b, --body: Don't generate a complete HTML document"
     print "  -r, --resources file: Path to resources folder"
-    print "  -o, --output file: Output result into a file instead of standard output"
+    print "  -o, --output file: Output result into a file instead of",
+    print "standard output"
     print "  -i, --items file: Extract items.png from jar file"
     print "  -t, --terrain file: Extract terrain.png from jar file"
     print "  -h, --help: Show this help"
-    
+
+
 def import_toppings():
     """
     Attempts to load all available toppings.
@@ -53,6 +56,7 @@ def import_toppings():
 
     return toppings
 
+
 def embed(html):
     return """<html>
                 <head>
@@ -67,6 +71,7 @@ def embed(html):
                     </div>
                 </body>
               </html>""" % (resources, resources, resources, html)
+
 
 def generate_html():
     toppings = import_toppings()
@@ -113,10 +118,12 @@ def generate_html():
     # Output results
     output.write(aggregate)
 
+
 def extract():
     import vitrine.extractor
     if extractor.extract(jar, mode, output) is None:
         sys.exit(1)
+
 
 if __name__ == '__main__':
     try:
@@ -149,9 +156,9 @@ if __name__ == '__main__':
         elif o in ("-b", "--body"):
             only_body = True
         elif o in ("-r", "--resources"):
-        	resources = a
-        	if resources[-1] != "/":
-        		resources += "/"
+            resources = a
+            if resources[-1] != "/":
+                resources += "/"
         elif o in ("-i", "--items"):
             mode = "items"
             jar = a

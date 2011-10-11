@@ -6,11 +6,12 @@
 
 from .topping import Topping
 
+
 class StatsTopping(Topping):
     KEY = "stats"
     NAME = "Stats"
     ITEMS = (("desc", None),)
     PRIORITY = 6
-    
+
     def parse_entry(self, entry, key=None):
-    	return key
+        return key

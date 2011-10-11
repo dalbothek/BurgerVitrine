@@ -7,6 +7,7 @@
 import json
 from cgi import escape
 
+
 class Topping(object):
     KEY = None
     NAME = "Unimplemented topping"
@@ -26,12 +27,12 @@ class Topping(object):
 
     def _parse_data(self):
         aggregate = ""
-        
+
         if isinstance(self.data, dict):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for key,entry in self.data.iteritems():
+                for key, entry in self.data.iteritems():
                     aggregate += self._parse_entry(entry, key)
         elif isinstance(self.data, list):
             if len(self.data) == 0:
@@ -41,7 +42,7 @@ class Topping(object):
                     aggregate += self._parse_entry(entry)
         else:
             aggregate += '<span class="info">Unexpected data</span>'
-            
+
         return aggregate
 
     def _parse_entry(self, entry, key=None):
@@ -75,13 +76,15 @@ class Topping(object):
             if new_key is None:
                 post_dl += value
             else:
-                aggregate += "<dt>%s</dt><dd>%s</dd>" % (self.escape(new_key), value)
+                aggregate += "<dt>%s</dt><dd>%s</dd>" % (
+                    self.escape(new_key), value
+                )
         return aggregate + "</dl>" + post_dl
-    
+
     def parse_entry(self, entry, key=None):
         entry["json"] = json.dumps(entry)
         return "NA"
-    
+
     def escape(self, string):
         return escape(str(string))
 

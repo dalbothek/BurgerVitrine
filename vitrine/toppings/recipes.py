@@ -6,12 +6,13 @@
 
 from .topping import Topping
 
+
 class RecipesTopping(Topping):
     KEY = "recipes"
     NAME = "Recipes"
     NO_ESCAPE = ("json")
     PRIORITY = 8
-    
+
     def _get_entry_html(self, entry, key=None):
         if entry is None or len(entry) == 0:
             return '<div class="no entry"></div>'
@@ -26,7 +27,10 @@ class RecipesTopping(Topping):
         if escape:
             title = self.escape(title)
         return ('<div class="entry">' +
-                '<div class="workbench"><div class="craftgrid">%s</div><div class="result">%s</div></div></div>') % (content, title)
+                '<div class="workbench"><div class="craftgrid">' +
+                '%s</div><div class="result">%s</div></div></div>') % (
+                    content, title
+                )
 
     def _split(self, left, right):
         return ('<div class="split"><div>%s</div>' +
@@ -38,11 +42,11 @@ class RecipesTopping(Topping):
             result += '<div class="amount">%s</div>' % entry["amount"]
         aggregate = ""
         if entry["type"] == "shape":
-            materials = {' ':'<div class="empty"></div>'}
-            for key,material in entry["raw"]["subs"].iteritems():
+            materials = {' ': '<div class="empty"></div>'}
+            for key, material in entry["raw"]["subs"].iteritems():
                 materials[key] = self.craft_item(material)
             rows = entry["raw"]["rows"]
-            for i in range(3-len(rows)):
+            for i in range(3 - len(rows)):
                 rows.append("   ")
             rows.reverse()
             for row in rows:
@@ -67,7 +71,6 @@ class RecipesTopping(Topping):
                     aggregate += '</div><div class="craftrow">'
             aggregate += "</div>"
 
-        
         entry["json"] = aggregate
         return result
 
@@ -75,19 +78,23 @@ class RecipesTopping(Topping):
         if material is None:
             return '<div class="empty"></div>'
         if "display_name" in material:
-        	title = material["display_name"]
+            title = material["display_name"]
         elif "name" in material:
-        	title = material["name"]
+            title = material["name"]
         else:
-        	title = "Unknown"
+            title = "Unknown"
         if "icon" in material:
-            icon = [-material["icon"][axis]*32 for axis in ("x", "y")]
-            return ('<div title="%s" class="item" style="background-position:' +
-                       '%spx %spx;"></div>') % (title, icon[0], icon[1])
+            icon = [-material["icon"][axis] * 32 for axis in ("x", "y")]
+            return ('<div title="%s" class="item" ' +
+                    'style="background-position:%spx %spx;"></div>') % (
+                        title, icon[0], icon[1]
+                    )
         elif "texture" in material:
-            icon = [-material["texture"][axis]*32 for axis in ("x", "y")]
-            return ('<div title="%s" class="texture" style="background-position:' +
-                       '%spx %spx;"></div>') % (title, icon[0], icon[1])
+            icon = [-material["texture"][axis] * 32 for axis in ("x", "y")]
+            return ('<div title="%s" class="texture" ' +
+                    'style="background-position:%spx %spx;"></div>') % (
+                        title, icon[0], icon[1]
+                    )
         elif "id" in material:
             content = material["id"]
         else:
