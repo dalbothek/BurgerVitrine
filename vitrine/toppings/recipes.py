@@ -33,8 +33,8 @@ class RecipesTopping(Topping):
                 )
 
     def _split(self, left, right):
-        return ('<div class="split"><div>%s</div>' +
-                '<div>%s</div></div>') % (left, right)
+        return ('<div class="split"><div class="left">%s</div>' +
+                '<div class="right">%s</div></div>') % (left, right)
 
     def parse_entry(self, entry, key):
         result = self.craft_item(entry["makes"])

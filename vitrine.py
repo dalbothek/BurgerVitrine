@@ -120,7 +120,7 @@ def generate_html():
 
 
 def extract():
-    import vitrine.extractor
+    from vitrine import extractor
     if extractor.extract(jar, mode, output) is None:
         sys.exit(1)
 

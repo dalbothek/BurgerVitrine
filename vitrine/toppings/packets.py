@@ -37,6 +37,7 @@ class PacketsTopping(Topping):
              "long": "writeLong",
              "double": "writeDouble",
              "string16": "writeString",
+             "string8": "writeStringUTF",
              "byte[]": "writeBytes"
         }
     PRIORITY = 7
