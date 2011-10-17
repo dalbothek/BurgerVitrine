@@ -76,14 +76,6 @@ a:hover { color: #036; }
 
 
 /* Actual style */
-.item {
-	background-image: url(items.png);
-}
-
-.texture {
-	background-image: url(terrain.png);
-}
-
 @font-face {
 	font-family: Minecraft;
 	src: url("minecraft.eot?") format("eot"),
