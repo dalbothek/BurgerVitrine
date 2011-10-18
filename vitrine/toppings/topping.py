@@ -32,13 +32,13 @@ class Topping(object):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for key, entry in sorted(self.data.items()):
+                for key, entry in self._nat_sort(self.data.items()):
                     aggregate += self._parse_entry(entry, key)
         elif isinstance(self.data, list):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for entry in sorted(self.data):
+                for entry in self._nat_sort(self.data):
                     aggregate += self._parse_entry(entry)
         else:
             aggregate += '<span class="info">Unexpected data</span>'
@@ -97,3 +97,9 @@ class Topping(object):
     def _split(self, left, right):
         return ('<div class="split"><div class="left">%s</div>' +
                 '<div class="right">%s</div></div>') % (left, right)
+    
+    def _nat_sort(self, entries):
+        tmp = [(int(re.search('\d+', i).group(0)), i) for i in entries]
+        tmp.sort()
+        return [i[1] for i in tmp]
+
