@@ -14,6 +14,7 @@ class Topping(object):
     ITEMS = (("json", None),)
     NO_ESCAPE = ()
     ESCAPE_TITLE = True
+    SORTING = None
     PRIORITY = 0
 
     NO_ENTRIES = '<span class="info">No entries</span>'
@@ -23,7 +24,9 @@ class Topping(object):
         self.diff = diff
 
     def __str__(self):
-        return "<h2>%s</h2>%s" % (self.NAME, self._parse_data())
+        return'<a href="#{1}"><h2 id="{1}">{0}</h2></a>{2}'.format(
+            self.NAME, self.anchor(), self._parse_data()
+        )
 
     def _parse_data(self):
         aggregate = ""
@@ -32,13 +35,13 @@ class Topping(object):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for key, entry in sorted(self.data.items()):
+                for key, entry in sorted(self.data.iteritems(), key=self.SORTING):
                     aggregate += self._parse_entry(entry, key)
         elif isinstance(self.data, list):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for entry in sorted(self.data):
+                for entry in sorted(self.data, key=self.SORTING):
                     aggregate += self._parse_entry(entry)
         else:
             aggregate += '<span class="info">Unexpected data</span>'
@@ -56,8 +59,11 @@ class Topping(object):
         if entry is None:
             return '<div class="no entry"></div>'
         else:
-            return self._entry(self.parse_entry(entry, key),
-                               self._get_dl(entry), self.ESCAPE_TITLE)
+        	anchor = title = self.parse_entry(entry, key)
+        	if(isinstance(title, tuple)):
+        		title, anchor = title
+        	return self._entry(title, self._get_dl(entry),
+                               anchor, self.ESCAPE_TITLE)
 
     def _get_dl(self, entry):
         aggregate = "<dl>"
@@ -88,12 +94,25 @@ class Topping(object):
     def escape(self, string):
         return escape(str(string))
 
-    def _entry(self, title, content, escape=True):
+    def _entry(self, title, content, anchor, escape=True):
         if escape:
             title = self.escape(title)
-        return ('<div class="entry"><h3>%s</h3>' +
-            '<div>%s</div></div>') % (title, content)
+        return ('<div class="entry"><a href="#{2}"><h3 id="{2}">{0}</h3></a>' +
+            '<div>{1}</div></div>').format(title, content, self.anchor(anchor))
 
     def _split(self, left, right):
         return ('<div class="split"><div class="left">%s</div>' +
                 '<div class="right">%s</div></div>') % (left, right)
+
+    def _anchor_escape(self, string):
+        return escape(str(string).lower().replace(" ", "_"))
+
+    def anchor(self, child=None):
+        anchor = self._anchor_escape(self.NAME)
+        if child is None:
+            return anchor
+        else:
+            return anchor + ":" + self._anchor_escape(child)
+            
+    def NUMERIC_SORT(self, (k, v)):
+    	return int(k), v

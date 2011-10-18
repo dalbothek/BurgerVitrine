@@ -70,7 +70,7 @@ button {  width: auto; overflow: visible; }
 
 body, select, input, textarea { color: #333; }
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
-a, a:active, a:visited { color: #607890; }
+a, a:active, a:visited { text-decoration: none; color: #000; }
 a:hover { color: #036; }
 
 
@@ -130,6 +130,7 @@ body {
 			}
 			
 		.entry {
+			background: #eee;
 			background: rgba(245, 245, 245, 0.8);
 			border: 1px solid #333;
 			margin: 3px;
@@ -193,6 +194,7 @@ body {
 					border-radius: 5px;
 					color: #fff;
 					background: #000;
+					font-size: 18px;
 					font-family: Minecraft, Courier, sans-serif;
 					-webkit-font-smoothing: none;
 					text-shadow: 2px 2px 0px #555;

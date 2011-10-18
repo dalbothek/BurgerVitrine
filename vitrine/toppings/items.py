@@ -12,6 +12,7 @@ class ItemsTopping(ItemTitleTopping):
     NAME = "Items"
     ITEMS = (("id", "ID"),
              ("name", "Name"))
+    SORTING = ItemTitleTopping.NUMERIC_SORT
     ESCAPE_TITLE = False
     PRIORITY = 9
 
@@ -24,4 +25,4 @@ class ItemsTopping(ItemTitleTopping):
         return ('<div class="item" title="%s" ' +
                 'style="background-position:%spx %spx;"></div>') % (
                     entry["name"], icon[0], icon[1]
-                )
+                ), entry["id"]

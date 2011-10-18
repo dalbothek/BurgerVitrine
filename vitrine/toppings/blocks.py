@@ -15,6 +15,15 @@ class BlocksTopping(ItemTitleTopping):
              ("hardness", "Hardness"))
     ESCAPE_TITLE = False
     PRIORITY = 10
+    
+    def SORTING(self, (k, v)):
+        if self.diff:
+            if v[0] is not None:
+                return int(v[0]["id"]), k
+            else:
+                return int(v[1]["id"]), k
+        else:
+            return int(v["id"]), k
 
     def parse_entry(self, entry, key):
         if "display_name" in entry:
@@ -26,8 +35,8 @@ class BlocksTopping(ItemTitleTopping):
             return ('<div title="%s" class="texture" ' +
                     'style="background-position:%spx %spx;"></div>') % (
                         entry["name"], icon[0], icon[1]
-                    )
+                    ), entry["id"]
         else:
             return '<div title="%s" class="craftitem">%s</div>' % (
                 entry["name"], entry["id"]
-            )
+            ), entry["id"]

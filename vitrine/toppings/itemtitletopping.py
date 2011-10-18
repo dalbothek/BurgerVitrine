@@ -8,8 +8,8 @@ from .topping import Topping
 
 
 class ItemTitleTopping(Topping):
-    def _entry(self, title, content, escape=True):
+    def _entry(self, title, content, anchor, escape=True):
         if escape:
             title = self.escape(title)
-        return ('<div class="entry"><h3 class="item_title">%s</h3>' +
-            '<div>%s</div></div>') % (title, content)
+        return ('<div class="entry"><h3 id="{2}" class="item_title"><a href="#{2}">{0}</a></h3>' +
+            '<div>{1}</div></div>').format(title, content, self.anchor(anchor))

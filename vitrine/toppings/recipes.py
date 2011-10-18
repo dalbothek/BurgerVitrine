@@ -11,16 +11,17 @@ class RecipesTopping(Topping):
     KEY = "recipes"
     NAME = "Recipes"
     NO_ESCAPE = ("json")
+    SORING = Topping.NUMERIC_SORT
     PRIORITY = 8
 
     def _get_entry_html(self, entry, key=None):
         if entry is None or len(entry) == 0:
             return '<div class="no entry"></div>'
         else:
-            aggregate = ""
+            aggregate = '<a id="%s"></a>' % self.anchor(entry[0]['makes']['id'])
             for recipe in entry:
                 aggregate += self._entry(self.parse_entry(recipe, key),
-                               self._get_dl(recipe), False)
+                						 self._get_dl(recipe), False)
             return aggregate
 
     def _entry(self, title, content, escape=True):

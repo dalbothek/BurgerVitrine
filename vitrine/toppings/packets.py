@@ -23,6 +23,7 @@ class PacketsTopping(Topping):
     ITEMS = ("Direction",
              ("size", "Size"),
              ("code", None))
+    SORTING = Topping.NUMERIC_SORT
     NO_ESCAPE = ("code")
 
     DIRECTIONS = {(True, True): "Both",
@@ -48,7 +49,9 @@ class PacketsTopping(Topping):
             entry["from_server"]
         )]
         entry["code"] = self.code(entry["instructions"])
-        return "0x%02x (%s)" % (entry["id"], entry["id"])
+        return ("0x%02x (%s)" % (entry["id"], entry["id"]),
+                "0x%02x" % entry["id"])
+                
 
     def code(self, instructions):
         code = self.instructions(instructions)
