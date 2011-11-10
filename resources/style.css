@@ -71,7 +71,6 @@ button {  width: auto; overflow: visible; }
 body, select, input, textarea { color: #333; }
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 a, a:active, a:visited { text-decoration: none; color: #000; }
-a:hover { color: #036; }
 
 
 
@@ -108,7 +107,7 @@ body {
 			margin: 25px 3px;
 		}
 		
-			h2:first-child {
+			a:first-child h2 {
 				margin-top: 0;
 			}
 			
@@ -178,13 +177,17 @@ body {
 			
 			.craftitem {
 				text-shadow: 1px 1px 0px #aaa;
-				font-size: 12px;
+				font-size: 8px;
 				line-height: 30px;
 				font-family: Minecraft, Courier, sans-serif;
 				-webkit-font-smoothing: none;
 				text-align: center;
-				cursor: default;
+				font-weight: bold;
 			}
+			
+			 .craftitem.large {
+			     font-size: 16px;
+			 }
 			
 				#tooltip {
 					position: absolute;
@@ -194,7 +197,7 @@ body {
 					border-radius: 5px;
 					color: #fff;
 					background: #000;
-					font-size: 18px;
+					font-size: 16px;
 					font-family: Minecraft, Courier, sans-serif;
 					-webkit-font-smoothing: none;
 					text-shadow: 2px 2px 0px #555;

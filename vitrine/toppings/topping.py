@@ -35,7 +35,8 @@ class Topping(object):
             if len(self.data) == 0:
                 aggregate += self.NO_ENTRIES
             else:
-                for key, entry in sorted(self.data.iteritems(), key=self.SORTING):
+                for key, entry in sorted(self.data.iteritems(),
+                                         key=self.SORTING):
                     aggregate += self._parse_entry(entry, key)
         elif isinstance(self.data, list):
             if len(self.data) == 0:
@@ -59,10 +60,10 @@ class Topping(object):
         if entry is None:
             return '<div class="no entry"></div>'
         else:
-        	anchor = title = self.parse_entry(entry, key)
-        	if(isinstance(title, tuple)):
-        		title, anchor = title
-        	return self._entry(title, self._get_dl(entry),
+            anchor = title = self.parse_entry(entry, key)
+            if(isinstance(title, tuple)):
+                title, anchor = title
+            return self._entry(title, self._get_dl(entry),
                                anchor, self.ESCAPE_TITLE)
 
     def _get_dl(self, entry):
@@ -113,6 +114,6 @@ class Topping(object):
             return anchor
         else:
             return anchor + ":" + self._anchor_escape(child)
-            
+
     def NUMERIC_SORT(self, (k, v)):
-    	return int(k), v
+        return int(k), v

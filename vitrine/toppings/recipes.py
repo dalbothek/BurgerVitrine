@@ -18,10 +18,11 @@ class RecipesTopping(Topping):
         if entry is None or len(entry) == 0:
             return '<div class="no entry"></div>'
         else:
-            aggregate = '<a id="%s"></a>' % self.anchor(entry[0]['makes']['id'])
+            id = entry[0]['makes']['id']
+            aggregate = '<a id="%s"></a>' % self.anchor(id)
             for recipe in entry:
                 aggregate += self._entry(self.parse_entry(recipe, key),
-                						 self._get_dl(recipe), False)
+                                         self._get_dl(recipe), False)
             return aggregate
 
     def _entry(self, title, content, escape=True):
@@ -98,6 +99,8 @@ class RecipesTopping(Topping):
                     )
         elif "id" in material:
             content = material["id"]
+            class_ = "craftitem large" if content < 100 else "craftitem"
         else:
             content = material
-        return '<div title="%s" class="craftitem">%s</div>' % (title, content)
+            class_ = "craftitem"
+        return '<div title="%s" class="%s">%s</div>' % (title, class_, content)

@@ -7,13 +7,17 @@
 from .topping import Topping
 
 
-class VersionsTopping(Topping):
-    KEY = "version"
-    NAME = "Versions"
-    PRIORITY = 6.5
+class EntitiessTopping(Topping):
+    KEY = "entities.entity"
+    NAME = "Entities"
+    ITEMS = (
+        ("id", "ID"),
+        ("name", "Name"),
+        ("height", "Height"),
+        ("width", "Width"),
+        ("texture", "Texture")
+    )
+    PRIORITY = 7.2
 
     def parse_entry(self, entry, key=None):
-        return key
-
-    def _get_dl(self, entry):
-        return entry
+        return entry["name"]

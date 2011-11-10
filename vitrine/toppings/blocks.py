@@ -15,7 +15,7 @@ class BlocksTopping(ItemTitleTopping):
              ("hardness", "Hardness"))
     ESCAPE_TITLE = False
     PRIORITY = 10
-    
+
     def SORTING(self, (k, v)):
         if self.diff:
             if v[0] is not None:
@@ -37,6 +37,7 @@ class BlocksTopping(ItemTitleTopping):
                         entry["name"], icon[0], icon[1]
                     ), entry["id"]
         else:
-            return '<div title="%s" class="craftitem">%s</div>' % (
-                entry["name"], entry["id"]
+            class_ = "craftitem large" if entry["id"] < 100 else "craftitem"
+            return '<div title="%s" class="%s">%s</div>' % (
+                entry["name"], class_, entry["id"]
             ), entry["id"]

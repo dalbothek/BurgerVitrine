@@ -51,7 +51,6 @@ class PacketsTopping(Topping):
         entry["code"] = self.code(entry["instructions"])
         return ("0x%02x (%s)" % (entry["id"], entry["id"]),
                 "0x%02x" % entry["id"])
-                
 
     def code(self, instructions):
         code = self.instructions(instructions)
