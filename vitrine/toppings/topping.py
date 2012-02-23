@@ -105,7 +105,10 @@ class Topping(object):
         return '<a href="%s">%s</a>' % (url, title);
 
     def escape(self, string):
-        return escape(str(string))
+        try:
+            return escape(str(string))
+        except UnicodeEncodeError:
+            return "[too cool to be parsed]"
 
     def _entry(self, title, content, anchor, escape=True):
         if escape:
