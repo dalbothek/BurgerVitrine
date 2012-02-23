@@ -21,10 +21,12 @@ class PacketsTopping(Topping):
     KEY = "packets.packet"
     NAME = "Packets"
     ITEMS = ("Direction",
+             ("id", "ID"),
              ("size", "Size"),
              ("code", None))
     SORTING = Topping.NUMERIC_SORT
     NO_ESCAPE = ("code")
+    ESCAPE_TITLE = False
 
     DIRECTIONS = {(True, True): "Both",
                   (True, False): "Client to server",
@@ -49,8 +51,16 @@ class PacketsTopping(Topping):
             entry["from_server"]
         )]
         entry["code"] = self.code(entry["instructions"])
-        return ("0x%02x (%s)" % (entry["id"], entry["id"]),
-                "0x%02x" % entry["id"])
+        
+        title = "0x%02x" % entry["id"]
+        if self.wiki_links:
+            title = "%s (%s)" % (self.wiki.name(entry["id"], "Unknown"), title)
+            
+        return (title, "0x%02x" % entry["id"])
+
+    def links(self, entry, key=None):
+        if self.wiki_links and self.wiki.url(entry["id"]) is not None:
+            yield ("wiki", self.wiki.url(entry["id"]))
 
     def code(self, instructions):
         code = self.instructions(instructions)

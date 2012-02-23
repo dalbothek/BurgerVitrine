@@ -166,6 +166,23 @@ body {
 					bottom: 0;					
 				}
 			
+			.links {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+			}
+			
+                .links a {
+                    display: block;
+                    float: right;
+                    margin-left: 5px;
+                    color: #666;
+                }
+                
+                .links a:hover {
+                    color: #222;
+                }
+			
 			.item, .texture, .empty, .result, .craftitem {
 				width: 32px;
 				height: 32px;

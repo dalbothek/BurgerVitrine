@@ -19,9 +19,11 @@ class Topping(object):
 
     NO_ENTRIES = '<span class="info">No entries</span>'
 
-    def __init__(self, data, diff):
+    def __init__(self, data, diff, wiki):
         self.data = data
         self.diff = diff
+        self.wiki = wiki
+        self.wiki_links = wiki is not None
 
     def __str__(self):
         return'<a href="#{1}"><h2 id="{1}">{0}</h2></a>{2}'.format(
@@ -61,9 +63,13 @@ class Topping(object):
             return '<div class="no entry"></div>'
         else:
             anchor = title = self.parse_entry(entry, key)
+            links = "".join(self._link(txt, url) for 
+                (txt, url) in self.links(entry, key))
+            if links is not "":
+                links = '<div class="links">%s</div>' % links
             if(isinstance(title, tuple)):
                 title, anchor = title
-            return self._entry(title, self._get_dl(entry),
+            return self._entry(title, "%s%s" % (links, self._get_dl(entry)),
                                anchor, self.ESCAPE_TITLE)
 
     def _get_dl(self, entry):
@@ -91,6 +97,12 @@ class Topping(object):
     def parse_entry(self, entry, key=None):
         entry["json"] = json.dumps(entry)
         return "NA"
+
+    def links(self, entry, key=None):
+        return tuple()
+        
+    def _link(self, title, url):
+        return '<a href="%s">%s</a>' % (url, title);
 
     def escape(self, string):
         return escape(str(string))

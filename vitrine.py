@@ -12,11 +12,12 @@ import json
 
 def usage():
     print "Usage:"
-    print "  vitrine.py [-b] [-r file] [-o file]"
+    print "  vitrine.py [-b] [-w] [-r file] [-o file]"
     print "  vitrine.py -i | -t file [-o file]"
     print
     print "Options:"
     print "  -b, --body: Don't generate a complete HTML document"
+    print "  -w, --wiki: Add links to the MinecraftCoalition wiki and display packet names"
     print "  -r, --resources file: Path to resources folder"
     print "  -o, --output file: Output result into a file instead of",
     print "standard output"
@@ -93,6 +94,13 @@ def generate_html():
     if not diff:
         data = data[0]
 
+    # Load packet names
+    if wiki_links:
+        from vitrine.wiki import CoalitionWiki
+        wiki = CoalitionWiki()
+    else:
+        wiki = None
+        
     # Generate HTML
     aggregate = ""
 
@@ -110,7 +118,7 @@ def generate_html():
         if skip:
             continue
 
-        aggregate += str(topping(obj, diff))
+        aggregate += str(topping(obj, diff, wiki))
 
     if not only_body:
         aggregate = embed(aggregate)
@@ -129,7 +137,7 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.gnu_getopt(
             sys.argv[1:],
-            "o:bi:t:r:h",
+            "o:bwi:t:r:h",
             [
                 "output=",
                 "body",
@@ -148,6 +156,7 @@ if __name__ == '__main__':
     only_body = False
     mode = "html"
     jar = None
+    wiki_links = False
     resources = "resources/"
 
     for o, a in opts:
@@ -155,6 +164,8 @@ if __name__ == '__main__':
             output = open(a, "w")
         elif o in ("-b", "--body"):
             only_body = True
+        elif o in ("-w", "--wiki"):
+            wiki_links = True
         elif o in ("-r", "--resources"):
             resources = a
             if resources[-1] != "/":
