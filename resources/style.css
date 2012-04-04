@@ -165,6 +165,12 @@ body {
 					top: 0;
 					bottom: 0;					
 				}
+
+				h3 .color {
+				    width: 15px;
+				    height: 15px;
+				    float: right;
+				}
 			
 			.links {
                 position: absolute;
