@@ -42,6 +42,8 @@ class RecipesTopping(Topping):
         result = self.craft_item(entry["makes"])
         if entry["amount"] > 1:
             result += '<div class="amount">%s</div>' % entry["amount"]
+        if entry["metadata"] != 0:
+            result += '<div class="metadata">%s</div>' % entry["metadata"]
         aggregate = ""
         if entry["type"] == "shape":
             materials = {' ': '<div class="empty"></div>'}

@@ -282,17 +282,27 @@ body {
 						border: none;
 					}
 					
-					.amount {
+					.amount, .metadata {
 						position: absolute;
-						bottom: 3px;
-						right: 3px;
-						color: #fff;
-						font-size: 16px;
 						text-shadow: 2px 2px 0px #000;
 						font-family: Minecraft, Courier, sans-serif;
 						-webkit-font-smoothing: none;
 						cursor: default;
 					}
+					
+				        .amount {
+				            color: #fff;
+                            right: 3px;
+				            bottom: 3px;
+                            font-size: 16px;
+					    }
+					   
+					    .metadata {
+                            left: 3px;
+                            color: #FFCD7C;
+				            bottom: 4px;
+                            font-size: 8px;
+                        }
 					
 /* Syntax highlighting */
 
