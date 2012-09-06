@@ -22,10 +22,11 @@ class ItemsTopping(ItemTitleTopping):
         elif "name" not in entry:
             entry["name"] = "Unknown"
         if "icon" in entry:
-            icon = [-entry["icon"][axis] * 32 for axis in ("x", "y")]
+            icon = tuple(-entry["icon"][axis] * 32 for axis in ("x", "y"))
+            style = 'background-position:%spx %spx;' % icon
         else:
-            icon = (-32, -32)
+            style = 'background-image:none;'
         return ('<div class="item" title="%s" ' +
-                'style="background-position:%spx %spx;"></div>') % (
-                    entry["name"], icon[0], icon[1]
+                'style="%s"></div>') % (
+                    entry["name"], style
                 ), entry["id"]
