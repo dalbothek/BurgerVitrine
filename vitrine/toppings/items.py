@@ -21,7 +21,10 @@ class ItemsTopping(ItemTitleTopping):
             entry["name"] = entry["display_name"]
         elif "name" not in entry:
             entry["name"] = "Unknown"
-        icon = [-entry["icon"][axis] * 32 for axis in ("x", "y")]
+        if "icon" in entry:
+            icon = [-entry["icon"][axis] * 32 for axis in ("x", "y")]
+        else:
+            icon = (-32, -32)
         return ('<div class="item" title="%s" ' +
                 'style="background-position:%spx %spx;"></div>') % (
                     entry["name"], icon[0], icon[1]
