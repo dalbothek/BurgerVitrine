@@ -69,7 +69,7 @@ button {  width: auto; overflow: visible; }
 .ie7 img { -ms-interpolation-mode: bicubic; }
 
 body, select, input, textarea { color: #333; }
-h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+h3, h4, h5, h6 { font-weight: bold; }
 a, a:active, a:visited { text-decoration: none; color: #000; }
 
 

@@ -59,7 +59,8 @@ def import_toppings():
 
 
 def embed(html):
-    return """<html>
+    return """<!doctype html>
+              <html>
                 <head>
                   <title>Burger Vitrine</title>
                   <link rel="stylesheet" href="%sstyle.css" />

@@ -10,11 +10,20 @@ from .topping import Topping
 class SoundsTopping(Topping):
     KEY = "sounds"
     NAME = "Sounds"
-    ITEMS = (
-        ("name", "Name"),
-        ("package", "Package")
-    )
     PRIORITY = 3.5
+    RESOURCE_URL = "http://s3.amazonaws.com/MinecraftResources/"
 
     def parse_entry(self, entry, key=None):
         return entry["name"]
+
+    def _get_dl(self, entry):
+        aggregate = "<dl>"
+        for version in entry['versions']:
+            aggregate += "<dt>%s</dt>" % version
+            aggregate += "<dd>%s</dd>" % "<br />".join(
+                "<a href=\"{0}{1}\">{1}</a>".format(self.RESOURCE_URL,
+                                                    sound['path'])
+                for sound in entry['versions'][version]
+            )
+        aggregate += "</dl>"
+        return aggregate
