@@ -31,7 +31,10 @@ class BlocksTopping(ItemTitleTopping):
         elif "name" not in entry:
             entry["name"] = "Unknown"
         if "texture" in entry:
-            icon = [-entry["texture"][axis] * 32 for axis in ("x", "y")]
+            if isinstance(entry['texture'], basestring):
+                icon = (-entry['id'] * 32, 0)
+            else:
+                icon = [-entry["texture"][axis] * 32 for axis in ("x", "y")]
             return ('<div title="%s" class="texture" ' +
                     'style="background-position:%spx %spx;"></div>') % (
                         entry["name"], icon[0], icon[1]

@@ -88,13 +88,19 @@ class RecipesTopping(Topping):
         else:
             title = "Unknown"
         if "icon" in material:
-            icon = [-material["icon"][axis] * 32 for axis in ("x", "y")]
+            if isinstance(material['icon'], basestring):
+                icon = (-(material['id'] % 1800 - 256) * 32, 0)
+            else:
+                icon = [-material["icon"][axis] * 32 for axis in ("x", "y")]
             return ('<div title="%s" class="item" ' +
                     'style="background-position:%spx %spx;"></div>') % (
                         title, icon[0], icon[1]
                     )
         elif "texture" in material:
-            icon = [-material["texture"][axis] * 32 for axis in ("x", "y")]
+            if isinstance(material['texture'], basestring):
+                icon = (-material['id'] * 32, 0)
+            else:
+                icon = [-material["texture"][axis] * 32 for axis in ("x", "y")]
             return ('<div title="%s" class="texture" ' +
                     'style="background-position:%spx %spx;"></div>') % (
                         title, icon[0], icon[1]

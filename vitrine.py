@@ -130,7 +130,13 @@ def generate_html():
 
 def extract():
     from vitrine import extractor
-    if extractor.extract(jar, mode, output) is None:
+    data = None
+    if not sys.stdin.isatty():
+        try:
+            data = json.load(sys.stdin)
+        except ValueError, err:
+            print "Error: Invalid input (" + str(err) + ")\n"
+    if not extractor.extract(jar, mode, output, data):
         sys.exit(1)
 
 

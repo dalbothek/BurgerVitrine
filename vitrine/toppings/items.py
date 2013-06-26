@@ -22,7 +22,10 @@ class ItemsTopping(ItemTitleTopping):
         elif "name" not in entry:
             entry["name"] = "Unknown"
         if "icon" in entry:
-            icon = tuple(-entry["icon"][axis] * 32 for axis in ("x", "y"))
+            if isinstance(entry['icon'], basestring):
+                icon = (-(entry['id'] % 1800 - 256) * 32, 0)
+            else:
+                icon = tuple(-entry["icon"][axis] * 32 for axis in ("x", "y"))
             style = 'background-position:%spx %spx;' % icon
         else:
             style = 'background-image:none;'
