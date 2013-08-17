@@ -53,7 +53,9 @@ class PacketsTopping(Topping):
         entry["code"] = self.code(entry["instructions"])
         
         title = "0x%02x" % entry["id"]
-        if self.wiki_links:
+        if "name" in entry:
+            title = "%s (%s)" % (entry["name"], title)
+        elif self.wiki_links:
             title = "%s (%s)" % (self.wiki.name(entry["id"], "Unknown"), title)
             
         return (title, "0x%02x" % entry["id"])
